@@ -1,0 +1,50 @@
+<script setup>
+const props = defineProps({
+  imgUrl: {
+    type: String,
+    required: true,
+  },
+});
+</script>
+
+<template>
+  <div class="root">
+    <div :style="`background-image:url(${imgUrl})`" class="img"></div>
+    <div class="main">
+      <el-button class="btn">Выбрать рандомный коктейль</el-button>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="sass">
+@import '../assets/styles/main'
+
+.root
+    display: flex
+    min-height: 100vh
+    background-color:$background
+
+.img
+    width: 50%
+    background-repeat: no-repeat
+    background-position: 50% 50%
+    background-size: cover
+
+.main
+    position: relative
+    width: 50%
+    padding: 32px 40px
+
+.btn
+    position: absolute
+    top: 32px
+    right: 40px
+    font-size: 16px
+    font-family: 'Releway','Arial',sans-serif
+    background-color: $accent
+    border-color:$accent
+    color: $text
+    &:hover,&:active
+        background-color: darken($accent,15%)
+        border-color:darken($accent,15%)
+</style>
