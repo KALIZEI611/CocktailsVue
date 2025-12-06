@@ -3,30 +3,38 @@ import AppLayout from "@/components/AppLayout.vue";
 import CocktailThumb from "@/components/CocktailThumb.vue";
 import { useRootStore } from "@/stores/root";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
 
 const rootStore = useRootStore();
 rootStore.getIngredients();
 
-const { ingredients, cocktails } = storeToRefs(rootStore);
-const ingredient = ref(null);
+const { ingredients, cocktails, ingredient } = storeToRefs(rootStore);
 
 const getCocktails = () => {
-  rootStore.getCocktails(ingredient.value);
+  rootStore.getCocktails(rootStore.ingredient);
+};
+
+const removeIngredient = () => {
+  rootStore.setIngredient(null);
 };
 </script>
 
 <template>
-  <AppLayout imgUrl="/src/assets/img/bg-1.jpg">
+  <AppLayout
+    imgUrl="/src/assets/img/bg-1.jpg"
+    :backFunction="removeIngredient"
+    :is-back-button-visible="!!ingredient"
+  >
     <div class="wrapper">
       <div v-if="!ingredient || !cocktails" class="info">
         <div class="title">Выберите свой напиток</div>
         <div class="line"></div>
         <div class="select-wrapper">
           <el-select
-            v-model="ingredient"
+            v-model="rootStore.ingredient"
             placeholder="Выберите основной ингредиент"
             size="large"
+            filterable
+            allow-create
             class="select"
             @change="getCocktails"
           >
@@ -102,7 +110,6 @@ const getCocktails = () => {
 
 .cocktails
   display: flex
-  justify-content: space-between
   align-items: center
   margin-top: 60px
   flex-wrap: wrap

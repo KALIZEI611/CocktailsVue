@@ -5,6 +5,7 @@ import { INGREDIENTS_URL, COCKTAILS_URL } from "@/constants";
 export const useRootStore = defineStore("root", {
   state: () => ({
     ingredients: [],
+    ingredient: null,
     cocktails: [],
   }),
   actions: {
@@ -23,6 +24,9 @@ export const useRootStore = defineStore("root", {
       } catch (error) {
         console.error("Error fetching ingredients:", error);
       }
+    },
+    setIngredient(val) {
+      this.ingredient = val;
     },
   },
 });
