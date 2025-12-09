@@ -2,11 +2,10 @@
 import AppLayout from "@/components/AppLayout.vue";
 import { COCKTAILSID_URL } from "@/constants";
 import { computed, onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import axios from "axios";
 
 const route = useRoute();
-const router = useRouter();
 const cocktail = ref(null);
 const cocktailId = computed(() => route.path.split("/").pop());
 const ingredients = computed(() => {
@@ -25,10 +24,6 @@ const getCocktail = async () => {
   cocktail.value = data?.data?.drinks[0];
 };
 
-const goBack = () => {
-  router.go(-1);
-};
-
 onMounted(() => {
   getCocktail();
 });
@@ -36,7 +31,7 @@ onMounted(() => {
 
 <template>
   <div v-if="cocktail" class="wrap">
-    <AppLayout :imgUrl="cocktail.strDrinkThumb" :backFunction="goBack">
+    <AppLayout :imgUrl="cocktail.strDrinkThumb">
       <div class="wrapper">
         <div class="info">
           <div class="title">{{ cocktail.strDrink }}</div>
