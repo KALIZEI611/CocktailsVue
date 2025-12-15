@@ -39,7 +39,7 @@ const removeIngredient = () => {
             @change="getCocktails"
           >
             <el-option
-              v-for="item in ingredients"
+              v-for="item in rootStore.ingredients"
               :key="item.strIngredient1"
               :label="item.strIngredient1"
               :value="item.strIngredient1"
