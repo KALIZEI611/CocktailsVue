@@ -24,14 +24,24 @@ const router = useRouter();
 const routeName = computed(() => route.name);
 
 const goForCoctailRandom = () => {
-  router.push(ROUTER_PATHS.COCTAIL_RANDOM);
   if (routeName.value === ROUTER_PATHS.COCTAIL_RANDOM) {
-    router.go();
+    // Если уже на странице случайного коктейля, просто обновляем данные
+    router.go(0); // перезагрузка страницы
+  } else {
+    // Иначе переходим на страницу случайного коктейля
+    router.push(ROUTER_PATHS.COCTAIL_RANDOM);
   }
 };
 
+// УБРАТЬ эту строку, она вызывает бесконечный цикл!
+// console.log(goForCoctailRandom());
+
 const goBack = () => {
-  props.backFunction ? props.backFunction() : router.go(-1);
+  if (props.backFunction) {
+    props.backFunction();
+  } else {
+    router.go(-1);
+  }
 };
 </script>
 
